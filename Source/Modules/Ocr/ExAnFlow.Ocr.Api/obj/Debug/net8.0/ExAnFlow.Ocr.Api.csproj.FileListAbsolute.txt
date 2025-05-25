@@ -1,0 +1,12 @@
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\bin\Debug\net8.0\ExAnFlow.Ocr.Api.deps.json
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\bin\Debug\net8.0\ExAnFlow.Ocr.Api.dll
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\bin\Debug\net8.0\ExAnFlow.Ocr.Api.pdb
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\obj\Debug\net8.0\ExAnFlow.Ocr.Api.csproj.AssemblyReference.cache
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\obj\Debug\net8.0\ExAnFlow.Ocr.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\obj\Debug\net8.0\ExAnFlow.Ocr.Api.AssemblyInfoInputs.cache
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\obj\Debug\net8.0\ExAnFlow.Ocr.Api.AssemblyInfo.cs
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\obj\Debug\net8.0\ExAnFlow.Ocr.Api.csproj.CoreCompileInputs.cache
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\obj\Debug\net8.0\ExAnFlow.Ocr.Api.dll
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\obj\Debug\net8.0\refint\ExAnFlow.Ocr.Api.dll
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\obj\Debug\net8.0\ExAnFlow.Ocr.Api.pdb
+C:\Projects\ExAnFlow\Source\Modules\Ocr\ExAnFlow.Ocr.Api\obj\Debug\net8.0\ref\ExAnFlow.Ocr.Api.dll
