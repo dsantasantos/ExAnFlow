@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ExAnFlow.Api.Services;
 
@@ -28,9 +25,7 @@ namespace ExAnFlow.Api.Controllers
         public async Task<IActionResult> ExtractText(IFormFile file)
         {
             if (file == null || file.Length == 0)
-            {
                 return BadRequest("Nenhum arquivo foi enviado.");
-            }
 
             try
             {
@@ -48,4 +43,4 @@ namespace ExAnFlow.Api.Controllers
             }
         }
     }
-} 
+}

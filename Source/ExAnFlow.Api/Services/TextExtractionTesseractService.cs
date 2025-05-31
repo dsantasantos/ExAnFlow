@@ -1,7 +1,3 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Tesseract;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Parser;
@@ -9,18 +5,13 @@ using iText.Kernel.Pdf.Canvas.Parser.Listener;
 
 namespace ExAnFlow.Api.Services
 {
-    public interface ITextExtractionService
-    {
-        Task<string> ExtractTextFromFile(Stream fileStream, string fileName);
-    }
-
-    public class TextExtractionService : ITextExtractionService
+    public class TextExtractionTesseractService : ITextExtractionService
     {
         private readonly string _tessDataPath;
         private static bool _isInitialized;
-        private readonly ILogger<TextExtractionService> _logger;
+        private readonly ILogger<TextExtractionTesseractService> _logger;
 
-        public TextExtractionService(ILogger<TextExtractionService> logger)
+        public TextExtractionTesseractService(ILogger<TextExtractionTesseractService> logger)
         {
             _logger = logger;
             _tessDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tessdata");
@@ -45,13 +36,7 @@ namespace ExAnFlow.Api.Services
 
             // Se o arquivo não existir, copia do recurso embutido
             if (!File.Exists(resourcePath))
-            {
                 _logger.LogError("Arquivo por.traineddata não encontrado em: {ResourcePath}", resourcePath);
-                throw new FileNotFoundException(
-                    "Arquivo de treinamento do Tesseract não encontrado. " +
-                    "Por favor, baixe o arquivo 'por.traineddata' de https://github.com/tesseract-ocr/tessdata/raw/main/por.traineddata " +
-                    "e coloque-o na pasta 'tessdata' do seu projeto.");
-            }
 
             _logger.LogInformation("Arquivo por.traineddata encontrado com sucesso");
             _isInitialized = true;
@@ -60,7 +45,7 @@ namespace ExAnFlow.Api.Services
         public async Task<string> ExtractTextFromFile(Stream fileStream, string fileName)
         {
             var extension = Path.GetExtension(fileName).ToLower();
-            
+
             return extension switch
             {
                 ".pdf" => await ExtractTextFromPdf(fileStream),
@@ -88,18 +73,10 @@ namespace ExAnFlow.Api.Services
 
         private async Task<string> ExtractTextFromImage(Stream imageStream)
         {
-            try
-            {
-                using var engine = new TesseractEngine(_tessDataPath, "por", EngineMode.Default);
-                using var img = Pix.LoadFromMemory(await ReadFully(imageStream));
-                using var page = engine.Process(img);
-                return page.GetText();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Erro ao processar imagem com Tesseract: {ex.Message}. " +
-                    "Verifique se o arquivo 'por.traineddata' está presente na pasta 'tessdata'.", ex);
-            }
+            using var engine = new TesseractEngine(_tessDataPath, "por", EngineMode.Default);
+            using var img = Pix.LoadFromMemory(await ReadFully(imageStream));
+            using var page = engine.Process(img);
+            return page.GetText();
         }
 
         private static async Task<byte[]> ReadFully(Stream input)
@@ -109,4 +86,4 @@ namespace ExAnFlow.Api.Services
             return ms.ToArray();
         }
     }
-} 
+}
