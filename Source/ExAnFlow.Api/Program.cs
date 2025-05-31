@@ -1,4 +1,4 @@
-using ExAnFlow.Ocr.Api.Services;
+using ExAnFlow.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +8,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ExAnFlow.Ocr.Api.Services.ITextExtractionService, ExAnFlow.Ocr.Api.Services.TextExtractionService>();
+builder.Services.AddScoped<ITextExtractionService, TextExtractionService>();
 
 var app = builder.Build();
 

@@ -2,9 +2,9 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ExAnFlow.Ocr.Api.Services;
+using ExAnFlow.Api.Services;
 
-namespace ExAnFlow.Ocr.Api.Controllers
+namespace ExAnFlow.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

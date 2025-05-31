@@ -1,12 +1,13 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Tesseract;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Parser;
 using iText.Kernel.Pdf.Canvas.Parser.Listener;
 
-namespace ExAnFlow.Ocr.Api.Services
+namespace ExAnFlow.Api.Services
 {
     public interface ITextExtractionService
     {
@@ -17,10 +18,13 @@ namespace ExAnFlow.Ocr.Api.Services
     {
         private readonly string _tessDataPath;
         private static bool _isInitialized;
+        private readonly ILogger<TextExtractionService> _logger;
 
-        public TextExtractionService()
+        public TextExtractionService(ILogger<TextExtractionService> logger)
         {
+            _logger = logger;
             _tessDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tessdata");
+            _logger.LogInformation("TessData path: {TessDataPath}", _tessDataPath);
             InitializeTesseract();
         }
 
@@ -31,21 +35,25 @@ namespace ExAnFlow.Ocr.Api.Services
             // Cria o diretório tessdata se não existir
             if (!Directory.Exists(_tessDataPath))
             {
+                _logger.LogInformation("Criando diretório tessdata em: {TessDataPath}", _tessDataPath);
                 Directory.CreateDirectory(_tessDataPath);
             }
 
             // Caminho para o arquivo de treinamento embutido
-            var resourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tessdata", "por.traineddata");
+            var resourcePath = Path.Combine(_tessDataPath, "por.traineddata");
+            _logger.LogInformation("Procurando arquivo por.traineddata em: {ResourcePath}", resourcePath);
 
             // Se o arquivo não existir, copia do recurso embutido
             if (!File.Exists(resourcePath))
             {
+                _logger.LogError("Arquivo por.traineddata não encontrado em: {ResourcePath}", resourcePath);
                 throw new FileNotFoundException(
                     "Arquivo de treinamento do Tesseract não encontrado. " +
                     "Por favor, baixe o arquivo 'por.traineddata' de https://github.com/tesseract-ocr/tessdata/raw/main/por.traineddata " +
                     "e coloque-o na pasta 'tessdata' do seu projeto.");
             }
 
+            _logger.LogInformation("Arquivo por.traineddata encontrado com sucesso");
             _isInitialized = true;
         }
 
