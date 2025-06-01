@@ -8,6 +8,9 @@
 *.suo
 *.userosscache
 *.sln.docstates
+# Exclude all .sln files except our main solution
+*.sln
+!ExAnFlow.sln
 
 # Arquivos de build
 bin/
