@@ -25,7 +25,18 @@ RUN dotnet publish "ExAnFlow.sln" -c Release -o /app/publish
 # Final stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
+
+# Instalar Tesseract OCR e suas dependências
+# A flag --no-install-recommends é usada para evitar a instalação de pacotes não essenciais.
+# tesseract-ocr-eng é para o idioma inglês. Se precisar de outros idiomas, adicione-os aqui.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    tesseract-ocr \
+    libleptonica-dev \
+    tesseract-ocr-eng && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY --from=publish /app/publish .
 EXPOSE 80
 EXPOSE 443
-ENTRYPOINT ["dotnet", "ExAnFlow.Api.dll"] 
+ENTRYPOINT ["dotnet", "ExAnFlow.Api.dll"]
