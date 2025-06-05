@@ -4,6 +4,13 @@ This document provides instructions on how to run the ExAnFlow API project using
 
 ## Running with Docker
 
+**Important Note on Network Restrictions:**
+Some network environments, particularly those with corporate firewalls or proxy servers (e.g., Meraki devices), might interfere with the package download process (`apt-get`) during the `docker build` stage. If you encounter errors related to `apt-get update` or `apt-get install` failing to fetch packages (e.g., "Connection refused" errors, or errors mentioning a proxy like `wired.meraki.com`), you may need to:
+-   Consult your network administrator to allowlist `http://deb.debian.org` and other necessary repositories.
+-   Configure Docker to use an appropriate HTTP/HTTPS proxy for your network.
+
+---
+
 There are two main ways to run the application using Docker:
 
 ### Using `docker-compose` (Recommended)
