@@ -9,6 +9,32 @@ Some network environments, particularly those with corporate firewalls or proxy 
 -   Consult your network administrator to allowlist `http://deb.debian.org` and other necessary repositories.
 -   Configure Docker to use an appropriate HTTP/HTTPS proxy for your network.
 
+One way to provide proxy information during the build is to use `--build-arg`. You would also need to ensure your `Dockerfile` is set up to use these arguments.
+
+**Example `docker build` command:**
+
+```bash
+docker build \
+  --build-arg HTTP_PROXY="http://your-proxy-address:proxy-port" \
+  --build-arg HTTPS_PROXY="http://your-proxy-address:proxy-port" \
+  --build-arg NO_PROXY="localhost,127.0.0.1,your-internal-domains" \
+  -t exanflow-api .
+```
+
+**Corresponding `Dockerfile` snippet (place at the beginning of stages needing proxy):**
+```Dockerfile
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ARG NO_PROXY
+
+ENV http_proxy=$HTTP_PROXY
+ENV https_proxy=$HTTPS_PROXY
+ENV no_proxy=$NO_PROXY
+
+# ... rest of Dockerfile stage (e.g., RUN apt-get update ...)
+```
+Make sure to replace `http://your-proxy-address:proxy-port` with your actual proxy server details and customize `NO_PROXY` as needed.
+
 ---
 
 There are two main ways to run the application using Docker:
